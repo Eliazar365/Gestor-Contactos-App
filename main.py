@@ -3,7 +3,7 @@ from tkinter import messagebox
 import json
 import os
 
-# --- Configuración ---
+# --- Configuración de la aplicación ---
 DATA_FILE = 'contacts.json'
 CONTACTS = []
 
