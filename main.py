@@ -35,7 +35,7 @@ class ContactManagerApp:
 
         self.input_frame = tk.Frame(master, padx=10, pady=10)
         self.input_frame.pack(pady=10)
-        self.button_frame = tk.Frame(master, padx=10, pady=5)
+        self.button_frame = tk.Frame(master, padx=10, pady=7)
         self.button_frame.pack(pady=5)
         self.list_frame = tk.Frame(master, padx=10, pady=10)
         self.list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
