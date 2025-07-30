@@ -30,15 +30,20 @@ class ContactManagerApp:
     def __init__(self, master):
         self.master = master
         master.title("Gestor de Contactos CRUD")
-        master.geometry("600x500")
+        master.geometry("600x500") # Tamaño inicial de la ventana principal
         master.resizable(False, False)
 
         self.input_frame = tk.Frame(master, padx=10, pady=10)
         self.input_frame.pack(pady=10)
-        self.button_frame = tk.Frame(master, padx=10, pady=7)
+        self.button_frame = tk.Frame(master, padx=10, pady=7) # CAMBIO DE FEATURE #2: pady=7
         self.button_frame.pack(pady=5)
+
         self.list_frame = tk.Frame(master, padx=10, pady=10)
-        self.list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
+        self.list_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 5)) # CAMBIO DE FEATURE #3: pady=(0, 5)
+
+        # NUEVAS LÍNEAS PARA FEATURE #3 (más complejo)
+        self.info_label = tk.Label(master, text="Gestión de Contactos Activa", fg="blue", font=("Arial", 9))
+        self.info_label.pack(pady=(0, 5))
 
         tk.Label(self.input_frame, text="Nombre:").grid(row=0, column=0, sticky="w", pady=2)
         self.name_entry = tk.Entry(self.input_frame, width=40)
