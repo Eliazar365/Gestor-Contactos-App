@@ -41,7 +41,7 @@ class ContactManagerApp:
         self.list_frame = tk.Frame(master, padx=10, pady=10)
         self.list_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 5)) # CAMBIO DE FEATURE #3: pady=(0, 5)
 
-        # NUEVAS LÍNEAS PARA FEATURE #3
+        # LÍNEAS DE FEATURE #3
         self.info_label = tk.Label(master, text="Gestión de Contactos Activa", fg="blue", font=("Arial", 9))
         self.info_label.pack(pady=(0, 5))
 
@@ -55,7 +55,7 @@ class ContactManagerApp:
         self.email_entry = tk.Entry(self.input_frame, width=40)
         self.email_entry.grid(row=2, column=1, pady=2)
 
-        # NUEVAS LÍNEAS PARA FEATURE #4: Campo de Notas y validación simulada
+        # LÍNEAS DE FEATURE #4: Campo de Notas y validación simulada
         tk.Label(self.input_frame, text="Notas (Opcional):").grid(row=3, column=0, sticky="w", pady=2)
         self.notes_entry = tk.Entry(self.input_frame, width=40)
         self.notes_entry.grid(row=3, column=1, pady=2)
@@ -67,8 +67,14 @@ class ContactManagerApp:
         self.update_button.grid(row=0, column=1, padx=5)
         self.delete_button = tk.Button(self.button_frame, text="Eliminar Contacto", command=self.delete_contact, width=15)
         self.delete_button.grid(row=0, column=2, padx=5)
+
+        # NUEVAS LÍNEAS PARA FEATURE #5: Botón Ver Detalles
+        self.details_button = tk.Button(self.button_frame, text="Ver Detalles", command=self.show_details, width=15)
+        self.details_button.grid(row=0, column=3, padx=5) # Este será el nuevo botón en la columna 3
+
+        # CAMBIO DE FEATURE #5: Ajuste de columna para Limpiar Campos
         self.clear_button = tk.Button(self.button_frame, text="Limpiar Campos", command=self.clear_entries, width=15)
-        self.clear_button.grid(row=0, column=3, padx=5)
+        self.clear_button.grid(row=0, column=4, padx=5) # AHORA EN LA COLUMNA 4
 
         self.contact_listbox = tk.Listbox(self.list_frame, height=15, width=80)
         self.contact_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
@@ -90,7 +96,6 @@ class ContactManagerApp:
             self.notes_entry.config(fg="black")
             self.info_label.config(text="Gestión de Contactos Activa", fg="blue")
 
-
     def clear_entries(self):
         self.name_entry.delete(0, tk.END)
         self.phone_entry.delete(0, tk.END)
@@ -98,7 +103,6 @@ class ContactManagerApp:
         self.notes_entry.delete(0, tk.END) # Limpia también el nuevo campo
         self.notes_entry.config(fg="black") # Resetea color
         self.info_label.config(text="Gestión de Contactos Activa", fg="blue")
-
 
     def view_contacts(self):
         self.contact_listbox.delete(0, tk.END)
@@ -206,6 +210,25 @@ class ContactManagerApp:
             self.clear_entries()
             self.view_contacts()
             messagebox.showinfo("Éxito", "Contacto eliminado correctamente.")
+
+    # NUEVO MÉTODO PARA FEATURE #5: Mostrar Detalles
+    def show_details(self):
+        """Simula la apertura de una ventana o un panel con más detalles del contacto seleccionado."""
+        selected_index_tuple = self.contact_listbox.curselection()
+        if not selected_index_tuple:
+            messagebox.showinfo("Información", "Por favor, selecciona un contacto para ver los detalles.")
+            return
+        index = selected_index_tuple[0]
+        if 0 <= index < len(CONTACTS):
+            contact = CONTACTS[index]
+            details_text = f"Detalles del Contacto:\n\n" \
+                           f"Nombre: {contact['name']}\n" \
+                           f"Teléfono: {contact['phone']}\n" \
+                           f"Email: {contact['email']}\n" \
+                           f"Notas: {contact.get('notes', 'N/A')}"
+            messagebox.showinfo("Detalles del Contacto", details_text)
+        else:
+            messagebox.showwarning("Error", "Selección inválida.")
 
 if __name__ == "__main__":
     root = tk.Tk()
